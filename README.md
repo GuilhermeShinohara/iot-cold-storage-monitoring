@@ -114,41 +114,46 @@ O projeto está alinhado aos seguintes ODS da ONU:
 # 📂 Estrutura do Repositório
 
 ```bash id="5lx13m"
-iot-temperature-monitoring/
+## Arquitetura do Repositório
+
+```text
+monitoramento-cadeia-frio-iot/
 │
-├── esp32/
-│   └── Código fonte do ESP32 em C/C++
+├── README.md                  # Documentação principal do projeto
+├── LICENSE                    # Licença do projeto
+├── .gitignore                 # Arquivos ignorados pelo Git
 │
-├── node-red/
-│   └── Fluxos Node-RED em JSON
+├── esp32/                     # Código-fonte do ESP32
+│   ├── sketch.ino
+│   ├── diagram.json
+│   └── bibliotecas.txt
 │
-├── mqtt/
-│   └── Configurações MQTT
+├── node-red/                  # Fluxos de automação Node-RED
+│   └── fluxos.json
 │
-├── influxdb/
-│   └── Estrutura do banco de dados
+├── grafana/                   # Dashboard de monitoramento
+│   ├── dashboard.json
+│   └── dashboard.png
 │
-├── grafana/
-│   └── Dashboards Grafana
+├── mqtt/                      # Configuração e tópicos MQTT
+│   └── topicos-mqtt.md
 │
-├── circuit/
-│   └── Diagramas elétricos
+├── docs/                      # Documentação técnica
+│   ├── instalacao.md
+│   ├── arquitetura.md
+│   └── testes.md
 │
-├── wokwi/
-│   └── Simulações e imagens
+├── circuito/                  # Circuito elétrico e componentes
+│   ├── diagrama-ligacao.png
+│   └── lista-componentes.md
 │
-├── images/
-│   └── Capturas de tela
+├── wokwi/                     # Simulação do projeto
+│   ├── link-simulacao.md
+│   └── simulacao-wokwi.png
 │
-├── docs/
-│   └── Documentação técnica
-│
-├── article/
-│   └── Artigo acadêmico
-│
-├── README.md
-├── LICENSE
-└── .gitignore
+└── imagens/                   # Imagens utilizadas no README
+    ├── visao-geral-sistema.png
+    └── preview-dashboard.png
 ```
 
 ---
