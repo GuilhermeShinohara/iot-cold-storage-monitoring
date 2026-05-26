@@ -1,39 +1,43 @@
 ```md
 # Tópicos MQTT - Monitoramento de Equipamentos de Refrigeração
 
-## 1. Contexto do Sistema
+## 📌 Contexto
 
-Este sistema utiliza MQTT para monitoramento de equipamentos de refrigeração com um único sensor por unidade, como:
+Este projeto utiliza MQTT para monitoramento de equipamentos de refrigeração com **um único sensor por unidade**, incluindo:
 
 - Geladeiras
 - Freezers
 - Câmaras frias
 
-Aplicado tanto para armazenamento de alimentos quanto insumos médicos.
-
-O objetivo é garantir controle de temperatura e detecção de falhas em tempo real.
+Aplicado para armazenamento de **alimentos e insumos médicos**, garantindo controle de temperatura e detecção de falhas em tempo real.
 
 ---
 
-## 2. Arquitetura MQTT
-
-- **Sensor IoT (ESP32 + sensor de temperatura)** → Publica dados
-- **Broker MQTT** → Centraliza mensagens
-- **Sistema de monitoramento (dashboard / alertas)** → Consome dados
-
-Fluxo:
+## 🏗️ Arquitetura
 
 ```
 
-Sensor → Broker MQTT → Sistema de Monitoramento
+Sensor IoT (ESP32) → Broker MQTT → Sistema de Monitoramento
 
 ```
+
+- **Sensor IoT**: coleta temperatura e status
+- **Broker MQTT**: centraliza e distribui mensagens
+- **Sistema de monitoramento**: dashboards e alertas
 
 ---
 
-## 3. Estrutura de Tópicos
+## 📡 Estrutura de Tópicos
 
-Como há apenas um sensor por equipamento, a estrutura é simples e padronizada:
+Padrão utilizado:
+
+```
+
+refrigeracao/{tipo}/{dado}
+
+```
+
+### Exemplos:
 
 ```
 
@@ -46,130 +50,102 @@ refrigeracao/freezer/status
 refrigeracao/camara/temperatura
 refrigeracao/camara/status
 
-```
+````
 
 ---
 
-## 4. Padrão de Organização
-
-Formato geral:
-
-```
-
-refrigeracao/{tipo}/{dado}
-
-```
-
-Onde:
-
-- `tipo` = geladeira | freezer | camara
-- `dado` = temperatura | status | alerta
-
----
-
-## 5. Payload das Mensagens
+## 📊 Tipos de Dados (Payload)
 
 ### Temperatura
-```
 
+```json
 {
-"valor": 4.2,
-"unidade": "C",
-"timestamp": "2026-05-26T21:00:00Z"
+  "valor": 4.2,
+  "unidade": "C",
+  "timestamp": "2026-05-26T21:00:00Z"
 }
-
-```
+````
 
 ---
 
 ### Status do equipamento
-```
 
+```json
 {
-"estado": "ok",
-"energia": "ligado"
+  "estado": "ok",
+  "energia": "ligado"
 }
-
 ```
 
 ---
 
-### Alerta (quando necessário)
-```
+### Alerta
 
+```json
 {
-"tipo": "temperatura_alta",
-"valor": 9.5,
-"limite": 8.0,
-"mensagem": "Temperatura fora do limite seguro"
+  "tipo": "temperatura_alta",
+  "valor": 9.5,
+  "limite": 8.0,
+  "mensagem": "Temperatura fora do limite seguro"
 }
-
 ```
 
 ---
 
-## 6. Tópicos de Alerta
+## 🚨 Tópicos de Alertas
 
 ```
-
 refrigeracao/geladeira/alerta
 refrigeracao/freezer/alerta
 refrigeracao/camara/alerta
-
 ```
 
 ---
 
-## 7. Assinatura com Wildcards
+## 🔎 Assinaturas (Wildcards)
 
-### Todos os equipamentos:
+### Todos os sensores de temperatura:
+
 ```
-
 refrigeracao/+/temperatura
-
 ```
 
-### Todos os dados do sistema:
-```
+### Tudo do sistema:
 
+```
 refrigeracao/#
-
 ```
 
 ---
 
-## 8. Qualidade de Serviço (QoS)
+## ⚙️ Qualidade de Serviço (QoS)
 
-- **QoS 0** → Temperatura em tempo real (envio contínuo)
-- **QoS 1** → Alertas (garantia de entrega)
-- **QoS 2** → Não necessário neste cenário simples
-
----
-
-## 9. Retained Messages
-
-Usado para manter:
-
-- Última temperatura registrada
-- Último status do equipamento
-
-Isso permite que o sistema já inicie com o último estado conhecido.
+* **QoS 0** → Telemetria contínua (temperatura)
+* **QoS 1** → Alertas críticos (garantia de entrega)
+* **QoS 2** → Não necessário neste cenário
 
 ---
 
-## 10. Aplicação no Projeto
+## 💾 Retained Messages
 
-Esse modelo permite:
+Utilizado para armazenar o último estado conhecido:
 
-- Monitoramento simples e escalável
-- Uso em ambientes médicos e alimentícios
-- Detecção de falhas térmicas
-- Integração com alertas (ex: WhatsApp, e-mail, dashboard)
-- Baixo consumo de rede e processamento
+* Última temperatura registrada
+* Último status do equipamento
+
+Isso garante que novos clientes recebam imediatamente o estado atual.
 
 ---
 
-## 11. Conclusão
+## 📈 Aplicação
 
-A estrutura MQTT foi simplificada para um cenário com um sensor por equipamento, garantindo leveza, clareza e facilidade de expansão futura para múltiplas unidades.
-```
+Este modelo permite:
+
+* Monitoramento em tempo real
+* Controle de cadeia fria (cold chain)
+* Uso em ambientes médicos e alimentícios
+* Integração com dashboards (Grafana, etc.)
+* Envio de alertas automáticos (WhatsApp, e-mail)
+
+---
+
