@@ -1,164 +1,176 @@
-# Prevenção de Perdas na Cadeia de Frio: IoT para Monitoramento de Temperatura com WhatsApp API
-
-## Descrição
-
-Este projeto utiliza Internet das Coisas (IoT) para monitoramento de temperatura em ambientes de cadeia de frio utilizando ESP32, sensor DHT22, protocolo MQTT, Node-RED, InfluxDB e Grafana.
-
-O sistema realiza a coleta contínua de temperatura e umidade, enviando os dados para monitoramento em tempo real através de dashboards e geração de alertas via API do WhatsApp em situações críticas.
+# ❄️ Cold Chain IoT Monitoring System  
+## Prevenção de Perdas na Cadeia de Frio com IoT, MQTT e Alertas via WhatsApp
 
 ---
 
-## Objetivos do Projeto
+## 📌 Visão Geral
 
-- Monitorar temperatura em tempo real;
-- Reduzir perdas na cadeia de frio;
-- Gerar alertas automáticos;
-- Armazenar dados históricos;
-- Disponibilizar dashboards para visualização;
-- Simular o sistema utilizando Wokwi.
+Este projeto implementa um sistema completo de monitoramento inteligente de cadeia de frio utilizando Internet das Coisas (IoT), com foco na prevenção de perdas de produtos sensíveis à temperatura, como alimentos, vacinas e medicamentos.
 
----
+O sistema realiza a coleta contínua de dados ambientais por meio de um ESP32 com sensor DHT22, transmitindo informações via MQTT para uma arquitetura de processamento em tempo real baseada em Node-RED, InfluxDB e Grafana.
 
-## Tecnologias Utilizadas
-
-- ESP32
-- Sensor DHT22
-- MQTT
-- Node-RED
-- InfluxDB
-- Grafana
-- Wokwi
-- WhatsApp API
+Em caso de condições críticas, o sistema gera alertas automáticos via WhatsApp API.
 
 ---
 
-## Componentes Utilizados
+## 🎯 Objetivos
 
-- ESP32 DevKit V1
-- Sensor DHT22
-- Cabos jumper
-- Protoboard
-- Fonte USB
+- Monitorar temperatura e umidade em tempo real  
+- Garantir rastreabilidade de condições ambientais  
+- Reduzir perdas na cadeia de frio  
+- Gerar alertas automáticos inteligentes  
+- Armazenar histórico de dados para análise  
+- Visualizar informações em dashboards interativos  
+- Validar o sistema por simulação com Wokwi  
 
 ---
 
-## Arquitetura do Repositório
+## 🧠 Arquitetura do Sistema
 
-```text
-monitoramento-cadeia-frio-iot/
+ESP32 (DHT22) → MQTT Broker → Node-RED → InfluxDB → Grafana → WhatsApp API Alerts  
+
+![Arquitetura do Sistema](imagens/visao-geral-sistema.png)
+
+---
+
+## 🧰 Tecnologias Utilizadas
+
+### Hardware
+- ESP32 DevKit V1  
+- Sensor DHT22  
+- Protoboard e jumpers  
+
+### Software
+- MQTT  
+- Node-RED  
+- InfluxDB  
+- Grafana  
+- Wokwi  
+- WhatsApp API  
+- Arduino IDE  
+
+---
+
+## 📁 Estrutura do Repositório
+
+```
+cold-chain-iot-monitoring/
 │
-├── README.md                  # Documentação principal do projeto
-├── LICENSE                    # Licença do projeto
-├── .gitignore                 # Arquivos ignorados pelo Git
+├── README.md
+├── LICENSE
+├── .gitignore
 │
-├── esp32/                     # Código-fonte do ESP32
+├── esp32/
 │   ├── sketch.ino
 │   ├── diagram.json
 │   └── bibliotecas.txt
 │
-├── node-red/                  # Fluxos de automação Node-RED
-│   └── fluxos.json
+├── node-red/
+│   └── flows.json
 │
-├── grafana/                   # Dashboard de monitoramento
+├── grafana/
 │   ├── dashboard.json
 │   └── dashboard.png
 │
-├── mqtt/                      # Configuração e tópicos MQTT
-│   └── topicos-mqtt.md
+├── mqtt/
+│   └── topics.md
 │
-├── docs/                      # Documentação técnica
-│   ├── instalacao.md
-│   ├── arquitetura.md
-│   └── testes.md
+├── influxdb/
+│   └── setup.md
 │
-├── circuito/                  # Circuito elétrico e componentes
+├── circuito/
 │   ├── diagrama-ligacao.png
 │   └── lista-componentes.md
 │
-├── wokwi/                     # Simulação do projeto
-│   ├── link-simulacao.md
-│   └── simulacao-wokwi.png
+├── wokwi/
+│   ├── simulacao.png
+│   └── link.md
 │
-└── imagens/                   # Imagens utilizadas no README
+└── imagens/
     ├── visao-geral-sistema.png
-    └── preview-dashboard.png
+    ├── preview-dashboard.png
+    └── node-red-flow.png
 ```
 
 ---
 
-## Esquema do Circuito
+## 📊 Dashboard Grafana
 
-<!-- Adicionar imagem do circuito aqui -->
-
----
-
-## Dashboard Grafana
-
-<!-- Adicionar imagem do dashboard aqui -->
+![Dashboard](imagens/preview-dashboard.png)
 
 ---
 
-## Simulação no Wokwi
+## 🔄 Node-RED Flow
 
-<!-- Adicionar imagem da simulação aqui -->
-
-Link da simulação:
-[Adicionar link do Wokwi aqui]
+![Node-RED](imagens/node-red-flow.png)
 
 ---
 
-## Instalação e Execução
+## ⚡ Circuito ESP32
 
-### 1. Clone o repositório
+![Circuito](circuito/diagrama-ligacao.png)
+
+---
+
+## 🧪 Simulação Wokwi
+
+Leitura simulada de sensores, publicação MQTT e validação completa do fluxo do sistema.
+
+Link: COLOCAR_LINK_AQUI  
+
+---
+
+## ⚙️ Instalação
 
 ```bash
-git clone https://github.com/seu-usuario/monitoramento-cadeia-frio-iot.git
+git clone https://github.com/seu-usuario/cold-chain-iot-monitoring.git
+cd cold-chain-iot-monitoring
 ```
 
-### 2. Configure o ESP32
+### ESP32
+Instalar Arduino IDE, bibliotecas WiFi, PubSubClient e DHT sensor library, configurar Wi-Fi e MQTT e fazer upload do código.
 
-- Instale a Arduino IDE;
-- Instale as bibliotecas necessárias;
-- Configure Wi-Fi e MQTT;
-- Faça upload do código para o ESP32.
+### Node-RED
+Importar flows.json, configurar broker MQTT e fazer deploy.
 
-### 3. Execute o Node-RED
+### InfluxDB
+Criar database e configurar measurements.
 
-- Importe o arquivo `flows.json`;
-- Configure o broker MQTT;
-- Configure os fluxos de monitoramento.
-
-### 4. Configure o InfluxDB
-
-- Crie o banco de dados;
-- Configure as medições;
-- Integre com Node-RED.
-
-### 5. Configure o Grafana
-
-- Importe o dashboard JSON;
-- Configure a fonte de dados;
-- Visualize os dados em tempo real.
+### Grafana
+Adicionar InfluxDB como data source e importar dashboard.
 
 ---
 
-## Funcionalidades
+## 🚨 Alertas
 
-- Monitoramento de temperatura e umidade;
-- Dashboard em tempo real;
-- Armazenamento histórico;
-- Alertas automáticos;
-- Simulação virtual do sistema;
-- Integração com WhatsApp API.
+O sistema monitora continuamente os dados e, quando a temperatura ultrapassa limites definidos, o Node-RED dispara automaticamente alertas via WhatsApp API, além de registrar os eventos no InfluxDB e atualizar o dashboard em tempo real.
 
 ---
 
-## Autor
+## 📌 Funcionalidades
 
-Guilherme Shinohara
+- Monitoramento IoT em tempo real  
+- Comunicação MQTT  
+- Dashboard interativo  
+- Histórico de dados  
+- Alertas automáticos  
+- Integração com WhatsApp  
+- Simulação com Wokwi  
 
 ---
 
-## Licença
+## 👨‍💻 Autor
 
-Este projeto possui licença para visualização e reprodução acadêmica, sem autorização para modificação ou uso comercial.
+Guilherme Shinohara  
+
+---
+
+## 🎓 Finalidade
+
+Projeto acadêmico voltado à aplicação de IoT em monitoramento de cadeia de frio.
+
+---
+
+## 📄 Licença
+
+Uso exclusivamente acadêmico e educacional.
