@@ -1,0 +1,44 @@
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Node-RED
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# Arduino build files
+*.elf
+*.bin
+
+# Wokwi cache
+wokwi-user.json
+
+# Grafana temporary files
+grafana.db
+
+# InfluxDB local files
+influxdb/
+
+# MQTT local configs
+mosquitto.db
+
+# Backup files
+*.bak
+
+# OS generated files
+Thumbs.db
