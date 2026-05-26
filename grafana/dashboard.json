@@ -1,16 +1,10 @@
-
 {
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": {
-          "type": "grafana",
-          "uid": "-- Grafana --"
-        },
         "enable": true,
         "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
         "type": "dashboard"
       }
@@ -19,86 +13,66 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
-  "links": [],
   "panels": [
     {
+      "type": "timeseries",
+      "title": "Temperatura (°C)",
       "datasource": {
         "type": "influxdb",
         "uid": "INFLUXDB"
       },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "celsius",
-          "color": {
-            "mode": "palette-classic"
-          }
-        },
-        "overrides": []
-      },
       "gridPos": {
-        "h": 9,
-        "w": 12,
         "x": 0,
-        "y": 0
-      },
-      "id": 1,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
+        "y": 0,
+        "w": 12,
+        "h": 8
       },
       "targets": [
         {
-          "query": "SELECT mean(\"temperatura\") FROM \"cadeia_frio\" WHERE $timeFilter GROUP BY time($__interval)",
-          "refId": "A"
+          "refId": "A",
+          "query": "SELECT mean(\"temperatura\") FROM \"cadeia_frio\" WHERE $timeFilter GROUP BY time($__interval) fill(null)"
         }
       ],
-      "title": "Temperatura (°C)",
-      "type": "timeseries"
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius"
+        }
+      },
+      "options": {
+        "legend": {
+          "showLegend": true
+        }
+      }
     },
     {
+      "type": "timeseries",
+      "title": "Umidade (%)",
       "datasource": {
         "type": "influxdb",
         "uid": "INFLUXDB"
       },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent",
-          "color": {
-            "mode": "palette-classic"
-          }
-        },
-        "overrides": []
-      },
       "gridPos": {
-        "h": 9,
-        "w": 12,
         "x": 12,
-        "y": 0
-      },
-      "id": 2,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
+        "y": 0,
+        "w": 12,
+        "h": 8
       },
       "targets": [
         {
-          "query": "SELECT mean(\"umidade\") FROM \"cadeia_frio\" WHERE $timeFilter GROUP BY time($__interval)",
-          "refId": "B"
+          "refId": "B",
+          "query": "SELECT mean(\"umidade\") FROM \"cadeia_frio\" WHERE $timeFilter GROUP BY time($__interval) fill(null)"
         }
       ],
-      "title": "Umidade (%)",
-      "type": "timeseries"
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        }
+      },
+      "options": {
+        "legend": {
+          "showLegend": true
+        }
+      }
     }
   ],
   "refresh": "5s",
@@ -106,16 +80,13 @@
   "style": "dark",
   "tags": [
     "iot",
-    "cadeia-frio",
-    "esp32"
+    "esp32",
+    "cadeia-frio"
   ],
   "time": {
     "from": "now-6h",
     "to": "now"
   },
-  "timepicker": {},
-  "timezone": "",
-  "title": "Monitoramento Cadeia de Frio - IoT",
-  "version": 1,
-  "weekStart": ""
+  "title": "Monitoramento Cadeia de Frio IoT",
+  "version": 1
 }
