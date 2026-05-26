@@ -1,33 +1,49 @@
 # ❄️ Cold Chain IoT Monitoring System  
-## Prevenção de Perdas na Cadeia de Frio com IoT, MQTT e Alertas via WhatsApp
+## Sistema Físico de Monitoramento de Cadeia de Frio com IoT e Alertas via WhatsApp
 
 ---
 
 ## 📌 Visão Geral
 
-Este projeto implementa um sistema completo de monitoramento inteligente de cadeia de frio utilizando Internet das Coisas (IoT), com foco na prevenção de perdas de produtos sensíveis à temperatura, como alimentos, vacinas e medicamentos.
+Este projeto implementa um **sistema físico real de Internet das Coisas (IoT)** aplicado ao monitoramento de cadeia de frio, com foco na prevenção de perdas de produtos sensíveis à temperatura, como alimentos, vacinas e medicamentos.
 
-O sistema realiza a coleta contínua de dados ambientais por meio de um ESP32 com sensor DHT22, transmitindo informações via MQTT para uma arquitetura de processamento em tempo real baseada em Node-RED, InfluxDB e Grafana.
+O sistema foi **construído em hardware físico**, utilizando ESP32 e sensor DHT22 em ambiente de prototipagem eletrônica, com comunicação em rede via MQTT e processamento em tempo real com Node-RED, InfluxDB e Grafana.
 
-Em caso de condições críticas, o sistema gera alertas automáticos via WhatsApp API.
+Em caso de variações críticas de temperatura, o sistema gera alertas automáticos via WhatsApp API.
+
+---
+
+## 🧪 Natureza do Projeto (Físico + IoT)
+
+Este projeto NÃO é apenas simulação. Ele envolve:
+
+- Montagem física em protoboard  
+- Uso de microcontrolador ESP32 real  
+- Leitura de sensores em ambiente físico  
+- Comunicação IoT em rede  
+- Sistema de monitoramento em tempo real  
 
 ---
 
 ## 🎯 Objetivos
 
-- Monitorar temperatura e umidade em tempo real  
-- Garantir rastreabilidade de condições ambientais  
-- Reduzir perdas na cadeia de frio  
-- Gerar alertas automáticos inteligentes  
-- Armazenar histórico de dados para análise  
-- Visualizar informações em dashboards interativos  
-- Validar o sistema por simulação com Wokwi  
+- Monitorar temperatura e umidade em ambiente físico real  
+- Simular cenário de cadeia de frio  
+- Reduzir perdas por variação térmica  
+- Gerar alertas automáticos  
+- Armazenar dados históricos  
+- Visualizar dados em dashboards  
+- Integrar hardware físico com sistemas IoT  
 
 ---
 
 ## 🧠 Arquitetura do Sistema
 
-ESP32 (DHT22) → MQTT Broker → Node-RED → InfluxDB → Grafana → WhatsApp API Alerts  
+Fluxo de dados:
+
+ESP32 (físico + DHT22) → MQTT Broker → Node-RED → InfluxDB → Grafana → WhatsApp API Alerts  
+
+📌 Arquitetura visual:
 
 ![Arquitetura do Sistema](imagens/visao-geral-sistema.png)
 
@@ -35,19 +51,21 @@ ESP32 (DHT22) → MQTT Broker → Node-RED → InfluxDB → Grafana → WhatsApp
 
 ## 🧰 Tecnologias Utilizadas
 
-### Hardware
+### 🔩 Hardware (Físico)
 - ESP32 DevKit V1  
 - Sensor DHT22  
-- Protoboard e jumpers  
+- Protoboard  
+- Jumpers  
+- Cabo USB  
 
-### Software
+### 💻 Software
 - MQTT  
 - Node-RED  
 - InfluxDB  
 - Grafana  
-- Wokwi  
-- WhatsApp API  
 - Arduino IDE  
+- WhatsApp API  
+- Wokwi (apenas validação opcional)
 
 ---
 
@@ -55,10 +73,6 @@ ESP32 (DHT22) → MQTT Broker → Node-RED → InfluxDB → Grafana → WhatsApp
 
 ```
 cold-chain-iot-monitoring/
-│
-├── README.md
-├── LICENSE
-├── .gitignore
 │
 ├── esp32/
 │   ├── sketch.ino
@@ -83,8 +97,7 @@ cold-chain-iot-monitoring/
 │   └── lista-componentes.md
 │
 ├── wokwi/
-│   ├── simulacao.png
-│   └── link.md
+│   └── simulacao.md
 │
 └── imagens/
     ├── visao-geral-sistema.png
@@ -94,68 +107,94 @@ cold-chain-iot-monitoring/
 
 ---
 
-## 📊 Dashboard Grafana
+## 🔧 Montagem Física do Sistema
 
-![Dashboard](imagens/preview-dashboard.png)
+O sistema foi montado fisicamente utilizando protoboard e componentes eletrônicos reais.
 
----
+O ESP32 realiza a leitura direta do sensor DHT22 e transmite os dados via rede Wi-Fi para o broker MQTT.
 
-## 🔄 Node-RED Flow
-
-![Node-RED](imagens/node-red-flow.png)
+📌 (Inserir foto da montagem física aqui)
 
 ---
 
-## ⚡ Circuito ESP32
+## 🚀 Guia de Instalação e Execução
 
-![Circuito](circuito/diagrama-ligacao.png)
-
----
-
-## 🧪 Simulação Wokwi
-
-Leitura simulada de sensores, publicação MQTT e validação completa do fluxo do sistema.
-
-Link: COLOCAR_LINK_AQUI  
-
----
-
-## ⚙️ Instalação
+### 1. Clonar o repositório
 
 ```bash
 git clone https://github.com/seu-usuario/cold-chain-iot-monitoring.git
 cd cold-chain-iot-monitoring
 ```
 
-### ESP32
-Instalar Arduino IDE, bibliotecas WiFi, PubSubClient e DHT sensor library, configurar Wi-Fi e MQTT e fazer upload do código.
+---
 
-### Node-RED
-Importar flows.json, configurar broker MQTT e fazer deploy.
+### 2. Configurar ESP32 (hardware físico)
 
-### InfluxDB
-Criar database e configurar measurements.
-
-### Grafana
-Adicionar InfluxDB como data source e importar dashboard.
+- Instalar Arduino IDE  
+- Instalar suporte ESP32  
+- Instalar bibliotecas:
+  - WiFi.h  
+  - PubSubClient  
+  - DHT sensor library  
+- Montar circuito físico:
+  - ESP32 + DHT22 em protoboard  
+- Configurar Wi-Fi e MQTT  
+- Fazer upload do código  
 
 ---
 
-## 🚨 Alertas
+### 3. Node-RED
 
-O sistema monitora continuamente os dados e, quando a temperatura ultrapassa limites definidos, o Node-RED dispara automaticamente alertas via WhatsApp API, além de registrar os eventos no InfluxDB e atualizar o dashboard em tempo real.
+- Importar flows.json  
+- Configurar broker MQTT  
+- Deploy do fluxo  
+
+---
+
+### 4. InfluxDB
+
+- Criar database  
+- Configurar measurements  
+- Conectar ao Node-RED  
+
+---
+
+### 5. Grafana
+
+- Adicionar InfluxDB  
+- Importar dashboard  
+- Visualizar dados  
+
+---
+
+## 🚨 Sistema de Alertas
+
+Quando a temperatura ultrapassa limites definidos:
+
+- ESP32 envia dados em tempo real  
+- Node-RED processa informações  
+- WhatsApp API envia alerta automático  
+- InfluxDB registra eventos  
+- Grafana atualiza dashboards  
+
+---
+
+## 📊 Interface do Sistema
+
+![Dashboard](imagens/preview-dashboard.png)  
+![Node-RED](imagens/node-red-flow.png)
 
 ---
 
 ## 📌 Funcionalidades
 
-- Monitoramento IoT em tempo real  
+- Sistema físico de IoT  
+- Monitoramento em tempo real  
 - Comunicação MQTT  
-- Dashboard interativo  
+- Visualização em dashboard  
 - Histórico de dados  
 - Alertas automáticos  
-- Integração com WhatsApp  
-- Simulação com Wokwi  
+- Integração com WhatsApp API  
 
 ---
 
@@ -167,10 +206,10 @@ Guilherme Shinohara
 
 ## 🎓 Finalidade
 
-Projeto acadêmico voltado à aplicação de IoT em monitoramento de cadeia de frio.
+Projeto acadêmico físico desenvolvido para demonstrar aplicação real de IoT no monitoramento de cadeia de frio.
 
 ---
 
 ## 📄 Licença
 
-Uso exclusivamente acadêmico e educacional.
+Este projeto é destinado exclusivamente para fins acadêmicos e educacionais.
