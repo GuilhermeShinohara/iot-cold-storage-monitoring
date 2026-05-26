@@ -1,5 +1,4 @@
 
-````markdown
 # 🚀 Instalação e Execução do Sistema IoT - Monitoramento de Cadeia de Frio
 
 ## 📌 Visão Geral
@@ -41,7 +40,6 @@ Antes de iniciar, certifique-se de ter os seguintes recursos:
 ```bash
 git clone https://github.com/seu-usuario/monitoramento-cadeia-frio-iot.git
 cd monitoramento-cadeia-frio-iot
-````
 
 ---
 
