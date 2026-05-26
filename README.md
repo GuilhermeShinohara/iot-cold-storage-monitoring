@@ -155,7 +155,6 @@ monitoramento-cadeia-frio-iot/
     ├── visao-geral-sistema.png
     └── preview-dashboard.png
 ```
-
 ---
 
 # 🔌 Arquitetura do Sistema
