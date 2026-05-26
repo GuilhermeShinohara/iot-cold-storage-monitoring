@@ -1,1 +1,157 @@
-
+[
+  {
+    "id": "tab_coldchain",
+    "type": "tab",
+    "label": "Cold Chain Monitoring",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "mqtt_broker_local",
+    "type": "mqtt-broker",
+    "name": "MQTT Broker",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "",
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true
+  },
+  {
+    "id": "mqtt_temp_in",
+    "type": "mqtt in",
+    "z": "tab_coldchain",
+    "name": "Temperatura",
+    "topic": "refrigeracao/+/temperatura",
+    "qos": "1",
+    "datatype": "auto",
+    "broker": "mqtt_broker_local",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 160,
+    "y": 120,
+    "wires": [
+      [
+        "json_parse",
+        "debug_temp"
+      ]
+    ]
+  },
+  {
+    "id": "mqtt_status_in",
+    "type": "mqtt in",
+    "z": "tab_coldchain",
+    "name": "Status Equipamento",
+    "topic": "refrigeracao/+/status",
+    "qos": "1",
+    "datatype": "auto",
+    "broker": "mqtt_broker_local",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 180,
+    "y": 200,
+    "wires": [
+      [
+        "debug_status"
+      ]
+    ]
+  },
+  {
+    "id": "json_parse",
+    "type": "json",
+    "z": "tab_coldchain",
+    "name": "Parse JSON",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 360,
+    "y": 120,
+    "wires": [
+      [
+        "check_temp"
+      ]
+    ]
+  },
+  {
+    "id": "check_temp",
+    "type": "function",
+    "z": "tab_coldchain",
+    "name": "Verificar Temperatura",
+    "func": "const data = (typeof msg.payload === \"string\") ? JSON.parse(msg.payload) : msg.payload;\n\nconst valor = data.valor;\nconst limite = 8;\n\nif (valor > limite) {\n    msg.topic = \"refrigeracao/alerta\";\n    msg.payload = {\n        tipo: \"temperatura_alta\",\n        valor: valor,\n        limite: limite,\n        timestamp: data.timestamp || new Date().toISOString()\n    };\n    return msg;\n}\n\nreturn null;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 590,
+    "y": 120,
+    "wires": [
+      [
+        "mqtt_alert_out",
+        "debug_alert"
+      ]
+    ]
+  },
+  {
+    "id": "mqtt_alert_out",
+    "type": "mqtt out",
+    "z": "tab_coldchain",
+    "name": "Enviar Alerta",
+    "topic": "",
+    "qos": "1",
+    "retain": "false",
+    "broker": "mqtt_broker_local",
+    "x": 820,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "debug_temp",
+    "type": "debug",
+    "z": "tab_coldchain",
+    "name": "Debug Temperatura",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 390,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "debug_status",
+    "type": "debug",
+    "z": "tab_coldchain",
+    "name": "Debug Status",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 420,
+    "y": 200,
+    "wires": []
+  },
+  {
+    "id": "debug_alert",
+    "type": "debug",
+    "z": "tab_coldchain",
+    "name": "Debug Alertas",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 820,
+    "y": 160,
+    "wires": []
+  }
+]
