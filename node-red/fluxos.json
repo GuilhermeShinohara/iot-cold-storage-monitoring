@@ -1,0 +1,179 @@
+[
+    {
+        "id": "tab-coldchain",
+        "type": "tab",
+        "label": "Cold Chain IoT",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "mqtt-in-01",
+        "type": "mqtt in",
+        "z": "tab-coldchain",
+        "name": "ESP32 MQTT",
+        "topic": "MACK10438845/temperatura",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "broker-hive-01",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 160,
+        "wires": [
+            [
+                "debug-01",
+                "classify-01",
+                "influx-prep-01"
+            ]
+        ]
+    },
+    {
+        "id": "debug-01",
+        "type": "debug",
+        "z": "tab-coldchain",
+        "name": "DEBUG MQTT",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 440,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "classify-01",
+        "type": "function",
+        "z": "tab-coldchain",
+        "name": "Classificar Temperatura",
+        "func": "var temp = msg.payload.temperatura;\n\nif (temp > 15) {\n    msg.nivel = \"critico\";\n    msg.url = 'https://api.callmebot.com/whatsapp.php?phone=5511993466721&text=🚨 ALERTA CRÍTICO: Temperatura do freezer atingiu ' + temp + 'C. AÇÃO IMEDIATA necessária!&apikey=7871754';\n    return msg;\n} else if (temp > 8) {\n    msg.nivel = \"atencao\";\n    msg.url = 'https://api.callmebot.com/whatsapp.php?phone=5511993466721&text=⚠️ ATENÇÃO: Temperatura do freezer atingiu ' + temp + 'C. Verifique o equipamento.&apikey=7871754';\n    return msg;\n} else {\n    msg.nivel = \"normal\";\n    return null;\n}",
+        "outputs": 1,
+        "x": 440,
+        "y": 200,
+        "wires": [
+            [
+                "http-wa-01",
+                "debug-nivel-01"
+            ]
+        ]
+    },
+    {
+        "id": "debug-nivel-01",
+        "type": "debug",
+        "z": "tab-coldchain",
+        "name": "Nível de Risco",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "complete": "nivel",
+        "targetType": "msg",
+        "x": 700,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "http-wa-01",
+        "type": "http request",
+        "z": "tab-coldchain",
+        "name": "Enviar WhatsApp",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "persist": false,
+        "x": 700,
+        "y": 240,
+        "wires": [
+            [
+                "debug-wa-01"
+            ]
+        ]
+    },
+    {
+        "id": "debug-wa-01",
+        "type": "debug",
+        "z": "tab-coldchain",
+        "name": "WhatsApp Enviado",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 940,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "influx-prep-01",
+        "type": "function",
+        "z": "tab-coldchain",
+        "name": "Preparar InfluxDB",
+        "func": "msg.payload = [\n    {\n        temperatura: msg.payload.temperatura,\n        umidade: msg.payload.umidade\n    },\n    {\n        sensor: \"DHT22\",\n        local: \"freezer\"\n    }\n];\nreturn msg;",
+        "outputs": 1,
+        "x": 440,
+        "y": 360,
+        "wires": [
+            [
+                "influx-out-01"
+            ]
+        ]
+    },
+    {
+        "id": "influx-out-01",
+        "type": "influxdb out",
+        "z": "tab-coldchain",
+        "influxdb": "influx-cloud-01",
+        "name": "Salvar InfluxDB",
+        "measurement": "temperatura",
+        "precision": "ms",
+        "retentionPolicy": "",
+        "database": "iot",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "688e1005bef88cd4",
+        "bucket": "bucket_dados",
+        "x": 720,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "broker-hive-01",
+        "type": "mqtt-broker",
+        "name": "HiveMQ",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "nodered-coldchain-001",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthQos": "0",
+        "willQos": "0"
+    },
+    {
+        "id": "influx-cloud-01",
+        "type": "influxdb",
+        "hostname": "",
+        "port": "",
+        "database": "",
+        "name": "InfluxDB Cloud",
+        "usetls": true,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "https://us-east-1-1.aws.cloud2.influxdata.com",
+        "timeout": "",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "28dcc86a7a5490e4",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-influxdb": "0.7.0"
+        }
+    }
+]
