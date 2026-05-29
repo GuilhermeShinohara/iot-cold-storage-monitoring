@@ -86,8 +86,8 @@ cold-chain-iot-monitoring/
 │   └── flows.json
 │
 ├── grafana/
-│   ├── dashboard.json
-│   └── dashboard.png
+    │   
+│   └── dashboard.jpeg
 │
 ├── mqtt/
 │   └── topics.md
