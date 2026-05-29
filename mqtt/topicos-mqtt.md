@@ -1,33 +1,19 @@
-Aqui está a versão em português, mais profissional e pronta para o GitHub:
-
 # 📡 Tópicos MQTT — Sistema de Monitoramento de Cadeia Fria
 
 ## 📌 Visão Geral
 
-Este projeto utiliza o protocolo MQTT para monitoramento em tempo real de equipamentos de refrigeração utilizando dispositivos IoT baseados em ESP32.
+Este projeto utiliza o protocolo MQTT para monitoramento em tempo real de temperatura em equipamentos de refrigeração utilizando ESP32 e sensor DHT22.
 
-A solução foi desenvolvida para monitoramento de cadeia fria (*cold chain*) em ambientes como:
-
-* Geladeiras
-* Freezers
-* Câmaras frias
-
-O sistema pode ser aplicado em:
-
-* Armazenamento de alimentos
-* Insumos médicos
-* Vacinas e produtos farmacêuticos
-
-O objetivo é garantir controle de temperatura, detectar falhas rapidamente e gerar alertas automáticos em situações críticas.
+O sistema foi desenvolvido para aplicações de cadeia fria (*cold chain*), permitindo monitoramento contínuo e geração de alertas automáticos.
 
 ---
 
 # 🏗️ Arquitetura do Sistema
 
-```text id="f9c3rd"
-ESP32 + Sensor
+```text id="n7q2lv"
+ESP32 + DHT22
         ↓
-Broker MQTT
+Broker MQTT (HiveMQ)
         ↓
 Node-RED / Sistema de Monitoramento
         ├──→ InfluxDB (armazenamento)
@@ -36,226 +22,108 @@ Node-RED / Sistema de Monitoramento
                     ↓
                Usuário Responsável
 ```
-       
-
-## Componentes
-
-### ESP32 + Sensor
-
-Responsável por:
-
-* Ler dados de temperatura
-* Detectar status do equipamento
-* Publicar mensagens MQTT
-
-### Broker MQTT
-
-Responsável por:
-
-* Receber mensagens dos dispositivos
-* Gerenciar assinaturas de tópicos
-* Distribuir dados para os sistemas conectados
-
-### Plataforma de Monitoramento
-
-Responsável por:
-
-* Dashboards e visualização
-* Geração de alertas
-* Histórico e análise de dados
 
 ---
 
-# 📡 Estrutura dos Tópicos MQTT
+# 📡 Broker MQTT Utilizado
 
-Padrão utilizado:
-
-```text
-refrigeracao/{tipo}/{dado}
+```text id="d8h4s1"
+broker.hivemq.com
 ```
 
-Onde:
+Porta utilizada:
 
-| Variável | Descrição               |
-| -------- | ----------------------- |
-| `{tipo}` | Tipo do equipamento     |
-| `{dado}` | Categoria da informação |
-
----
-
-# 📂 Exemplos de Tópicos
-
-## Geladeira
-
-```text
-refrigeracao/geladeira/temperatura
-refrigeracao/geladeira/status
-refrigeracao/geladeira/alerta
-```
-
-## Freezer
-
-```text
-refrigeracao/freezer/temperatura
-refrigeracao/freezer/status
-refrigeracao/freezer/alerta
-```
-
-## Câmara Fria
-
-```text
-refrigeracao/camara/temperatura
-refrigeracao/camara/status
-refrigeracao/camara/alerta
+```text id="w2m7ka"
+1883
 ```
 
 ---
 
-# 📊 Estrutura dos Payloads
+# 📂 Tópico MQTT Utilizado
+
+```text id="z9x5pc"
+coldchain/temperatura
+```
+
+Este tópico é responsável pelo envio dos dados de temperatura coletados pelo ESP32.
+
+---
+
+# 📊 Estrutura do Payload
 
 ## Payload de Temperatura
 
-```json
+```json id="j3k8tr"
 {
-  "valor": 4.2,
-  "unidade": "C",
-  "timestamp": "2026-05-26T21:00:00Z"
+  "temperatura": 4.2
 }
 ```
 
 ---
 
-## Payload de Status do Equipamento
+# 🔎 Assinatura MQTT
 
-```json
-{
-  "estado": "ok",
-  "energia": "ligado"
-}
+## Escutar dados de temperatura
+
+```text id="x5q8vu"
+coldchain/temperatura
 ```
 
 ---
 
-## Payload de Alerta
+# ⚙️ QoS Utilizado
 
-```json
-{
-  "tipo": "temperatura_alta",
-  "valor": 9.5,
-  "limite": 8.0,
-  "mensagem": "Temperatura fora do limite seguro"
-}
-```
-
----
-
-# 🚨 Tópicos de Alerta
-
-```text
-refrigeracao/geladeira/alerta
-refrigeracao/freezer/alerta
-refrigeracao/camara/alerta
-```
-
-Esses tópicos são utilizados para notificações críticas como:
-
-* Temperatura elevada
-* Falha de energia
-* Defeito no sensor
-* Perda de comunicação
-
----
-
-# 🔎 Wildcards MQTT
-
-## Assinar todos os sensores de temperatura
-
-```text
-refrigeracao/+/temperatura
-```
-
-## Assinar todos os tópicos do sistema
-
-```text
-refrigeracao/#
-```
-
----
-
-# ⚙️ Níveis de QoS
-
-| QoS   | Utilização                               |
-| ----- | ---------------------------------------- |
-| QoS 0 | Telemetria contínua                      |
-| QoS 1 | Alertas críticos com garantia de entrega |
-| QoS 2 | Não necessário neste projeto             |
+| QoS   | Finalidade                   |
+| ----- | ---------------------------- |
+| QoS 0 | Envio contínuo de telemetria |
 
 ---
 
 # 💾 Retained Messages
 
-Mensagens retidas (*retained messages*) são utilizadas para armazenar o último estado conhecido do dispositivo.
-
-Exemplos:
-
-* Última temperatura registrada
-* Último status do equipamento
-
-Isso permite que novos clientes recebam imediatamente o estado atual do sistema ao se conectarem ao broker MQTT.
+Mensagens retidas podem ser utilizadas para manter o último valor conhecido de temperatura disponível para novos clientes conectados.
 
 ---
 
-# 📈 Aplicações do Projeto
-
-Esta arquitetura permite:
+# 📈 Funcionalidades
 
 * Monitoramento em tempo real
-* Controle de cadeia fria (*cold chain*)
-* Supervisão de alimentos refrigerados
-* Monitoramento de insumos médicos
-* Integração com dashboards (Grafana, Node-RED e InfluxDB)
-* Envio automático de alertas (WhatsApp, E-mail e Telegram)
+* Integração com Node-RED
+* Armazenamento no InfluxDB
+* Dashboards no Grafana
+* Alertas automáticos via WhatsApp
 
 ---
 
 # 🛠️ Tecnologias Utilizadas
 
 * ESP32
+* DHT22
 * MQTT
+* HiveMQ
 * Node-RED
 * InfluxDB
 * Grafana
-* Sensor DHT22
-* HiveMQ / Mosquitto
 
 ---
 
-# 📄 Exemplo do Fluxo MQTT
+# 📄 Fluxo de Funcionamento
 
-```text
-ESP32 realiza leitura da temperatura
+```text id="g8w2kt"
+ESP32 lê temperatura do DHT22
         ↓
-Publica em:
-refrigeracao/freezer/temperatura
+Publica no tópico:
+coldchain/temperatura
         ↓
-Broker MQTT recebe a mensagem
+Broker HiveMQ recebe a mensagem
         ↓
 Node-RED processa os dados
         ↓
-Grafana atualiza o dashboard
+InfluxDB armazena as informações
         ↓
-WhatsApp envia alerta se limite for excedido
+Grafana atualiza os dashboards
+        ↓
+WhatsApp envia alertas automáticos
 ```
-
----
-
-# 🚀 Melhorias Futuras
-
-* Múltiplos sensores por equipamento
-* Monitoramento de umidade
-* Manutenção preditiva
-* Detecção de anomalias com IA
-* Integração em nuvem
-* Aplicativo mobile
 
 ---
