@@ -36,8 +36,7 @@ Node-RED / Sistema de Monitoramento
                     ↓
                Usuário Responsável
 ```
-
-```          
+       
 
 ## Componentes
 
