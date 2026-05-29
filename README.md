@@ -98,7 +98,6 @@ cold-chain-iot-monitoring/
 │
 ├── wokwi/
     └── simulacao.md
-
 ```
 
 ---
@@ -110,7 +109,6 @@ O sistema foi desenvolvido em ambiente online utilizando o Wokwi para simular o 
 O ESP32 realiza a leitura do sensor DHT22 simulado e transmite os dados via rede Wi-Fi para o broker MQTT.
 
 <img width="1026" height="466" alt="image" src="https://github.com/user-attachments/assets/5d2246bd-4ef3-4b33-865e-e7fd10bf3703" />
-
 
 ---
 
@@ -161,9 +159,6 @@ cd cold-chain-iot-monitoring
 * Adicionar InfluxDB
 * Importar dashboard
 * Visualizar dados
-<img width="877" height="304" alt="Node red" src="https://github.com/user-attachments/assets/bfc974e2-71d5-4179-8075-627113284f76" />
-<img width="1600" height="659" alt="Influx" src="https://github.com/user-attachments/assets/2973c88c-c231-44ba-8112-c7f76bde9818" />
-<img width="1600" height="592" alt="Grafana" src="https://github.com/user-attachments/assets/ced313fc-3dd7-41d7-afa3-847b54b6deb5" />
 
 ---
 
@@ -181,10 +176,27 @@ Quando a temperatura ultrapassa limites definidos:
 
 ## Interface do Sistema
 
-<img width="1027" height="574" alt="image" src="https://github.com/user-attachments/assets/f1c7a038-4e78-4e7f-85ab-27e5d9db2c52" />
+### 1. Node-RED — Fluxo de Processamento de Dados
 
-<img width="940" height="346" alt="image" src="https://github.com/user-attachments/assets/e845989b-d494-46f4-a9c6-d856588b67cc" />
+Fluxo configurado no Node-RED responsável por receber as mensagens MQTT publicadas pelo ESP32, processar os dados de temperatura e umidade, acionar os alertas via WhatsApp e encaminhar as leituras ao InfluxDB para armazenamento.
 
+<img width="877" height="304" alt="Node red" src="https://github.com/user-attachments/assets/bfc974e2-71d5-4179-8075-627113284f76" />
+
+---
+
+### 2. InfluxDB — Armazenamento das Leituras
+
+Interface do InfluxDB exibindo os dados de temperatura e umidade armazenados ao longo do tempo. Cada registro corresponde a uma leitura enviada pelo ESP32 via MQTT, permitindo consulta e análise histórica das variações da cadeia de frio.
+
+<img width="1600" height="659" alt="Influx" src="https://github.com/user-attachments/assets/2973c88c-c231-44ba-8112-c7f76bde9818" />
+
+---
+
+### 3. Grafana — Dashboard de Monitoramento
+
+Dashboard do Grafana com visualização em tempo real das métricas coletadas. Apresenta gráficos de temperatura e umidade com histórico de leituras, possibilitando identificar rapidamente variações críticas e acompanhar o comportamento do ambiente monitorado.
+
+<img width="1600" height="592" alt="Grafana" src="https://github.com/user-attachments/assets/ced313fc-3dd7-41d7-afa3-847b54b6deb5" />
 
 ---
 
