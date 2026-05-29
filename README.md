@@ -12,6 +12,16 @@ Em caso de variações críticas de temperatura, o sistema gera alertas automát
 
 ---
 
+## 🎥 Vídeo de Apresentação
+
+Assista à explicação completa do projeto:
+
+[![Apresentação do Projeto](https://img.youtube.com/vi/0jvnXD7V_uU/0.jpg)](https://www.youtube.com/watch?v=0jvnXD7V_uU&t=170s)
+
+> Clique na imagem para assistir no YouTube.
+
+---
+
 ## Natureza do Projeto (Online + IoT)
 
 Este projeto envolve:
@@ -205,4 +215,3 @@ Kauan Sarzi
 Kaua Alencar
 
 ## Orientado por: Prof. Wallace Rodrigues de Santana Universidade Presbiteriana Mackenzie — FCI
-
