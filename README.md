@@ -201,9 +201,9 @@ Quando a temperatura ultrapassa limites definidos:
 ## 👨‍💻 Autor
 
 Guilherme Shinohara  
-Thiago Kaua Amaral
-Kauan Sarzi
-Kaua Alencar
+Thiago Kaua Amaral  
+Kauan Sarzi  
+Kaua Alencar  
 
 ---
 
