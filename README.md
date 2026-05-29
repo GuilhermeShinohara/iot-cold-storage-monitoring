@@ -1,6 +1,4 @@
-# Cold Chain IoT Monitoring System
-
-## Sistema Online de Monitoramento de Cadeia de Frio com IoT e Alertas via WhatsApp
+# Sistema Online de Monitoramento de Cadeia de Frio com IoT e Alertas via WhatsApp
 
 ---
 
