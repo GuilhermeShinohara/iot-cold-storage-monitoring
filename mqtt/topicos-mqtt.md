@@ -24,9 +24,20 @@ O objetivo é garantir controle de temperatura, detectar falhas rapidamente e ge
 
 # 🏗️ Arquitetura do Sistema
 
-```text
-ESP32 + Sensor → Broker MQTT → Plataforma de Monitoramento
+```text id="f9c3rd"
+ESP32 + Sensor
+        ↓
+Broker MQTT
+        ↓
+Node-RED / Sistema de Monitoramento
+        ├──→ InfluxDB (armazenamento)
+        ├──→ Grafana (dashboards)
+        └──→ API WhatsApp (alertas)
+                    ↓
+               Usuário Responsável
 ```
+
+```          
 
 ## Componentes
 
