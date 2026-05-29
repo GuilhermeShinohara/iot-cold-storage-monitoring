@@ -200,6 +200,15 @@ Dashboard do Grafana com visualização em tempo real das métricas coletadas. A
 
 ---
 
+### 4. WhatsApp — Alertas Automáticos em Tempo Real
+
+Notificações enviadas automaticamente via WhatsApp API (Callmebot) sempre que a temperatura ultrapassa o limite crítico configurado. As mensagens são disparadas pelo Node-RED e entregues em tempo real, garantindo resposta imediata a situações de risco na cadeia de frio.
+
+<img width="1600" height="1296" alt="image" src="https://github.com/user-attachments/assets/9be5a6c1-e09f-4760-af9b-82bfdb926e19" />
+
+
+---
+
 ## Funcionalidades
 
 * Sistema online de IoT
