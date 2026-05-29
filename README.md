@@ -106,7 +106,8 @@ O sistema foi desenvolvido em ambiente online utilizando o Wokwi para simular o 
 
 O ESP32 realiza a leitura do sensor DHT22 simulado e transmite os dados via rede Wi-Fi para o broker MQTT.
 
-📌 (Inserir imagem da simulação online aqui)
+<img width="1026" height="466" alt="image" src="https://github.com/user-attachments/assets/5d2246bd-4ef3-4b33-865e-e7fd10bf3703" />
+
 
 ---
 
@@ -174,8 +175,10 @@ Quando a temperatura ultrapassa limites definidos:
 
 ## Interface do Sistema
 
-![Dashboard](imagens/preview-dashboard.png)
-![Node-RED](imagens/node-red-flow.png)
+<img width="1027" height="574" alt="image" src="https://github.com/user-attachments/assets/f1c7a038-4e78-4e7f-85ab-27e5d9db2c52" />
+
+<img width="940" height="346" alt="image" src="https://github.com/user-attachments/assets/e845989b-d494-46f4-a9c6-d856588b67cc" />
+
 
 ---
 
