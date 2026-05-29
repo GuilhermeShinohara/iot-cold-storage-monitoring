@@ -195,19 +195,13 @@ Quando a temperatura ultrapassa limites definidos:
 
 ## Autores
 
-Guilherme Shinohara,
-Thiago Kaua Amaral,
-Kauan Sarzi,
-Kaua Alencar.
+Guilherme Shinohara
 
----
+Thiago Kaua Amaral
 
-## Finalidade
+Kauan Sarzi
 
-Projeto acadêmico online desenvolvido para demonstrar aplicação de IoT no monitoramento de cadeia de frio.
+Kaua Alencar
 
----
+## Orientado por: Prof. Wallace Rodrigues de Santana Universidade Presbiteriana Mackenzie — FCI
 
-## Licença
-
-Este projeto é destinado exclusivamente para fins acadêmicos e educacionais.
