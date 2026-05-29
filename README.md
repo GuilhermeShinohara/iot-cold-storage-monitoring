@@ -195,10 +195,10 @@ Quando a temperatura ultrapassa limites definidos:
 
 ## Autores
 
-Guilherme Shinohara
-Thiago Kaua Amaral
-Kauan Sarzi
-Kaua Alencar
+Guilherme Shinohara,
+Thiago Kaua Amaral,
+Kauan Sarzi,
+Kaua Alencar.
 
 ---
 
