@@ -161,6 +161,9 @@ cd cold-chain-iot-monitoring
 * Adicionar InfluxDB
 * Importar dashboard
 * Visualizar dados
+<img width="877" height="304" alt="Node red" src="https://github.com/user-attachments/assets/bfc974e2-71d5-4179-8075-627113284f76" />
+<img width="1600" height="659" alt="Influx" src="https://github.com/user-attachments/assets/2973c88c-c231-44ba-8112-c7f76bde9818" />
+<img width="1600" height="592" alt="Grafana" src="https://github.com/user-attachments/assets/ced313fc-3dd7-41d7-afa3-847b54b6deb5" />
 
 ---
 
