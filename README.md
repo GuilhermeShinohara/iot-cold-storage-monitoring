@@ -95,17 +95,10 @@ cold-chain-iot-monitoring/
 ├── influxdb/
 │   └── setup.md
 │
-├── circuito/
-│   ├── diagrama-ligacao.png
-│   └── lista-componentes.md
 │
 ├── wokwi/
-│   └── simulacao.md
-│
-└── imagens/
-    ├── visao-geral-sistema.png
-    ├── preview-dashboard.png
-    └── node-red-flow.png
+    └── simulacao.md
+
 ```
 
 ---
